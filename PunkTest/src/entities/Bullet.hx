@@ -33,7 +33,7 @@ class Bullet extends Entity
     private function move()
     {	if(y > 500){
     		y = 0;
-    		x += 20;
+    		x = Math.random() * 384;
     	}
         moveBy(0, 5);
     }
@@ -43,5 +43,12 @@ class Bullet extends Entity
     {
         // Here we could place specific destroy-behavior for the Bullet.
         scene.remove(this);
+    }
+    public function reset() : Bullet
+    {
+        // Here we could place specific destroy-behavior for the Bullet.
+        this.x = 200;
+        this.y = 0;
+        return this;
     }
 }

@@ -6,6 +6,8 @@ import com.haxepunk.Scene;
 import com.haxepunk.Entity;
 import com.haxepunk.graphics.Image;
 import com.haxepunk.graphics.Text;
+import com.haxepunk.utils.Input;
+import com.haxepunk.utils.Key;
 
 class MainScene extends Scene
 {
@@ -19,7 +21,7 @@ class MainScene extends Scene
     public function new()
     {
         super();
-        
+        Input.define("reset", [Key.ENTER, Key.SPACE]);
     }
 
 
@@ -29,6 +31,8 @@ class MainScene extends Scene
         super.update();
         if(score != null)
             score.updateSet();
+        if(player.dead && Input.check("reset"))
+            reset();
     }
 
 
@@ -38,10 +42,17 @@ class MainScene extends Scene
         
         background = add(new Background(0,0));
 		player = add(new Player(0,333));
-        bullet = add(new Bullet(0,0));
+        bullet = add(new Bullet(200,0));
         text = add(new TestText(""));
         score.SetBullet(bullet);
         score.SetPlayer(player);
         score.SetOutPutText(text);
 	}
+
+    public function reset()
+    {
+        player.reset();
+        score.reset();
+        add(bullet.reset());
+    }
 }

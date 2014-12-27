@@ -13,8 +13,17 @@ class ScoreSystem
 	private var score:Int;
 	private var lastBulletY:Int;
 	private var wasGreater:Bool;
+	private var debug:Bool;
 
     public function new()
+    {
+    	score = 0;
+    	lastBulletY = 0;
+    	wasGreater = false;
+    	debug = false;
+    }
+
+    public function reset()
     {
     	score = 0;
     	lastBulletY = 0;
@@ -23,21 +32,26 @@ class ScoreSystem
 
 	public function updateSet()
 	{
+		var gotPoints:Bool = false;
 		if(bullet.y<lastBulletY)
 		{
 			score += 100;
+			gotPoints = true;
 		}
 
 		if(player.x < bullet.x && wasGreater || player.x > bullet.x && !wasGreater)
 		{
-			score += 100;
+			if(!gotPoints)
+				score += 100;
 
 			if(wasGreater)
 				wasGreater = false;
 			else
 				wasGreater = true;
 		}
-		if(!player.dead)
+		if(!player.dead && debug)
+			outputText.SetText(player.x+" "+score+" points");
+		else if(!player.dead)
 			outputText.SetText(score+" points");
 		else
 			outputText.SetText("Game Over: \nYou had "+score+" points");

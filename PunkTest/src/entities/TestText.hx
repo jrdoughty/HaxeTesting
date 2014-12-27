@@ -11,7 +11,7 @@ class TestText extends Entity
         super(0, 100);
 		this.text = new Text(text,0,0,384,40);
         this.text.size = 32;
-        this.text.font = "font/arial.ttf";
+        //this.text.font = "font/arial.ttf";
         // create a new spritemap (image, frameWidth, frameHeight)
         graphic = this.text;
     }

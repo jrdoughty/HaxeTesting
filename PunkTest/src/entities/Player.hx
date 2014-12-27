@@ -90,14 +90,17 @@ class Player extends Entity
         {
             velocity = 5 * HXP.sign(velocity);
         }
-		if (velocity < 0)
+		if (velocity < 0 && this.x > 0)
 		{
 			velocity = Math.min(velocity + 0.4, 0);
 		}
-		else if (velocity > 0)
+		else if (velocity > 0 && this.x < 384 - this.width)
 		{
 			velocity = Math.max(velocity - 0.4, 0);
 		}
+        else{
+            velocity = 0;
+        }
         moveBy(velocity, 0);
     }
 
@@ -123,5 +126,10 @@ class Player extends Entity
                 sprite.flipped = false;
             }
         }
+    }
+    public function reset()
+    {
+        this.x = 0;
+        dead = false;
     }
 }
